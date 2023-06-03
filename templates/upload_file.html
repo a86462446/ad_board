@@ -168,7 +168,7 @@
     }
     .card .content .details
     {
-        padding: 30px 20px;
+        padding: 20px 10px;
         text-align: center;
         width: 100%;
         transition: 0.5s;
@@ -224,13 +224,6 @@
     }
 </style>
 <body>
-    <!-- <h3>檔案上傳</h3>
-    <form method="post" enctype="multipart/form-data" >
-        {% csrf_token %}
-        <input type="file" name="file" autocomplete="off" required multiple>
-        <button type="submit">上傳</button>
-        <button onclick="location.href='play'">檔案列表</button>
-    </form> -->
 
     {% if message %}
         <p>{{ message }}</p>
@@ -251,22 +244,24 @@
                     <p>
                         Upload your advertisement here.
                     </p>
-                    <a href="">
-                        <form method="post" enctype="multipart/form-data" >
-                            {% csrf_token %}
-                            <input type="file" name="file" autocomplete="off" required multiple>
-                            <button type="submit">上傳</button>
-                        </form>
-                    </a>
+                    
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label class="btn btn-info">
+                            Select File
+                            <input type="file" name="file" autocomplete="off" required multiple style="display:none;">
+                        </label>
+
+                        <label class="btn btn-info">
+                            Submit
+                            <input type="submit" value="Submit" style="display:none;">
+                        </label>
+                    </form>
+                        
                 </div>
             </div>
         </div>
     </div>
-
-    <label class="btn btn-info">
-        <input id="upload_img" style="display:none;" type="file">
-        <i class="fa fa-photo"></i> 上傳圖片
-    </label>
 
     <a href="/">back</a>
 </body>
