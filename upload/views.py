@@ -38,7 +38,7 @@ def upload_file(request):
 
                 fs.save(file.name, file)
             # 返回成功訊息
-            return render(request, 'upload_file.html', {'message':'檔案上傳成功！'})
+            return render(request, 'upload_file.html', {'message':'Upload Successfully.'})
     # 請求是GET時，表示用戶訪問了上傳頁面
     else:
         # 返回上傳頁面
@@ -111,7 +111,7 @@ def delete_file(file_path):
     # 刪除檔案
     os.remove(file_full_path)
     # 返回刪除成功訊息
-    return '檔案刪除成功！'
+    return 'Successfully deleted.'
 
 # 控制撥放器 (暫停、關閉)
 def control_player(request):
@@ -119,33 +119,12 @@ def control_player(request):
     if request.method == 'POST':
         # 取得請求的資料
         data = json.loads(request.body)
+        
         # 取得請求的動作
         action = data.get('action')
-        # 請求是Pause時，表示用戶按下了暫停按鈕
-        if action == 'Pause':
-            # 呼叫xdotool，模擬按下空白鍵
-            subprocess.run(['xdotool','key','space'])
         
         # 請求是Stop時，表示用戶按下了關閉按鈕
-        elif action == 'Stop':
+        if action == 'Stop':
             subprocess.call(['osascript', '-e', 'quit app "VLC"'])
 
     return JsonResponse({'message':'success'}) # 返回成功訊息
-
-def get_duration(request): # 取得影片長度
-    if request.method == 'POST': # 當請求為POST的時候
-        # 取得請求的資料
-        data = json.loads(request.body)
-        file_path = data.get('file_name') # 取得檔案名稱
-
-        file_full_path = os.path.join(settings.MEDIA_ROOT, file_path) # 取得檔案完整路徑
-        cap = cv2.VideoCapture(file_full_path) # 開啟檔案
-        if cap.isOpened(): # 如果檔案開啟成功
-            rate = cap.get(5) # 取得影片的幀率
-            frame_num =cap.get(7) # 取得影片的總幀數
-            duration = frame_num/rate # 計算影片長度
-            
-            data = {'duration':duration} # 弄成字典
-            return JsonResponse(data) # 返回影片長度
-    else:
-        return JsonResponse({'message':'sending duration fail !'}) # 如果失敗的話，返回失敗訊息

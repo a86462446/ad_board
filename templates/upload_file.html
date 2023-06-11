@@ -214,27 +214,31 @@
         opacity: 1;
     }
 
-    /* .card .content .details a form input{
-        opacity: 0;
-    } */
-
-    a{
-        color: white;
-        text-decoration: none;
-    }
-
     .card .content .details label{
         margin-left: 20px;
         margin-right: 10px;
     }
+    .footer{
+        flex-basis: 60%;
+        margin-left: 533px;
+    }
+    .footer p{
+        color:#45f3ff;
+        padding-bottom: 50px;
+    }
+
+    .header{
+        background-color: #333;
+        width: 100%;
+        padding-top: 10px;
+    }
 </style>
 <body>
 
-    {% if message %}
-        <p>{{ message }}</p>
-    {% endif %}
-
     <div class="container">
+        <div class="header">
+        
+        </div>
         <div class="card">
             <div class="lines"></div>
             <div class="imgBx">
@@ -265,8 +269,18 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <a href="/">back</a>
+        <div class="footer">
+            {% if message %}
+                <p>{{ message }}</p>
+            {% endif %}
+            <label class="btn btn-info">
+                Back to homepage
+                <form>
+                    <input type="submit" formaction="/" style="display: none;">
+                </form>
+            </label>
+        </div>
+    </div>
 </body>
 </html>
